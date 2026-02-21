@@ -6,9 +6,9 @@ import lombok.Data;
 public class DashboardResponseDTO {
 
 	
-	private Long totalEnqCnt;
-	private Long openEnqCnt;
-	private Long enrolledEnqCnt;
-	private Long  lostEnqCnt;
+	private Integer totalEnqCnt;
+	private Integer openEnqCnt;
+	private Integer enrolledEnqCnt;
+	private Integer  lostEnqCnt;
 	
 }
