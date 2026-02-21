@@ -1,15 +1,19 @@
 package in.stproject.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import in.stproject.dto.DashboardResponseDTO;
 import in.stproject.dto.EnqFilterDTO;
 import in.stproject.dto.EnquiryDTO;
+import in.stproject.entity.CounsellorEntity;
 import in.stproject.entity.EnquiryEntity;
+import in.stproject.repo.CounsellorRepo;
 import in.stproject.repo.EnquiryRepo;
 
 @Service
@@ -17,6 +21,9 @@ public class EnquiryServiceImpl implements EnquiryService{
 
 	@Autowired
 	private EnquiryRepo enqRepo;
+	
+	@Autowired
+	private CounsellorRepo counsellorRep;
 	
 	@Override
 	public DashboardResponseDTO getDashboardInfo(Integer counsellorId) {
@@ -55,7 +62,23 @@ public class EnquiryServiceImpl implements EnquiryService{
 	@Override
 	public boolean addEnquiry(EnquiryDTO enqDTO, Integer counsellorId) {
 		// TODO Auto-generated method stub
-		return false;
+		
+	 	
+		
+		EnquiryEntity entity = new EnquiryEntity();
+		BeanUtils.copyProperties(enqDTO, entity);
+		
+		
+		//Setting FK(counsellor_Id) to enquiry obj
+		Optional<CounsellorEntity> byId = counsellorRep.findById(counsellorId);
+		
+		if(byId.isPresent()) {
+			CounsellorEntity counsellor = byId.get();
+			entity.setCounsellor(counsellor);
+		}
+		EnquiryEntity save = enqRepo.save(entity);
+		
+		return save.getEnqId()!=null;
 	}
 
 	@Override
