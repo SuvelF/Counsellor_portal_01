@@ -34,7 +34,7 @@ public class EnquiryServiceImpl implements EnquiryService{
 		
 		DashboardResponseDTO dto = new DashboardResponseDTO();
 		
-		dto.setTotalEnqCnt(enqList.size());
+		
 		
 		int openCount = enqList.stream()
 				.filter(enq -> enq.getEneStatus()
@@ -53,13 +53,13 @@ public class EnquiryServiceImpl implements EnquiryService{
 				.collect(Collectors.toList())
 				.size();
 		
-		
+		dto.setTotalEnqCnt(enqList.size());
 		dto.setOpenEnqCnt(openCount);
 		dto.setEnrolledEnqCnt(enrolledCnt);
 		dto.setLostEnqCnt(lostCnt);
 
 		
-		return null;
+		return dto;
 	}
 
 	@Override
