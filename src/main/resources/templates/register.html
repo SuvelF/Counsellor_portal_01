@@ -12,12 +12,12 @@
 	<div class="container">
 		<h1>Register Here</h1>
 		<font style="color: red;">
-		<p th:text="${emsg}"></p>
+			<p th:text="${emsg}"></p>
 		</font>
 		
 		<font style="color: green">
-				<p th:text="${smsg}"></p>
-				</font>
+			<p th:text="${smsg}"></p>
+		</font>
 		
 		<form th:action="@{/register}" th:object="${counsellor}" method="post">
 			

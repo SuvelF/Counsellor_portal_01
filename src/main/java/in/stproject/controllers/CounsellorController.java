@@ -109,6 +109,8 @@ public class CounsellorController {
        return "register";
 	}
 	
+	
+	@GetMapping("/dashboard")
 	public String displayDashboard(HttpServletRequest req, Model model) {
 		
 		HttpSession session = req.getSession(false);

@@ -20,6 +20,17 @@ public class EnquiryController {
 	@Autowired
 	private EnquiryService enqService;
 	
+	
+	@GetMapping("/edit-enquiry")
+	public String editEnquiry(Integer enqId, Model model) {
+		
+		EnquiryDTO enqDto = enqService.getEnquiryById(enqId);
+		model.addAttribute("enquiry",enqDto);
+		
+		
+		return "add-enquiry";
+	}
+	
 	@GetMapping("/enquiry-page")
 	public String loadEnqPage(Model model) {
 		
