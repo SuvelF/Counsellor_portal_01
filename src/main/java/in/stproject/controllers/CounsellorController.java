@@ -34,6 +34,22 @@ public class CounsellorController {
 	}
 	
 	
+	@GetMapping("/logout")
+	public String logout(HttpServletRequest req, Model model) {
+		
+		HttpSession session = req.getSession(false);
+		session.invalidate();
+		
+		
+//	    CounsellorDTO cdto = new CounsellorDTO();
+//	    model.addAttribute("counsellor",cdto);
+//	   
+		
+		
+		return "redirect:/";
+	}
+	
+	
 	@PostMapping("/login")
 	public String handleLogin(HttpServletRequest req, CounsellorDTO dto , Model model) {
 		CounsellorDTO counsellor = counsellorService.login(dto);
@@ -91,6 +107,19 @@ public class CounsellorController {
 		}
 	
        return "register";
+	}
+	
+	public String displayDashboard(HttpServletRequest req, Model model) {
+		
+		HttpSession session = req.getSession(false);
+		Integer counsellorId = (Integer)session.getAttribute("counsellorId");
+	    
+		DashboardResponseDTO dashboardDto = enqService.getDashboardInfo(counsellorId);
+		
+		model.addAttribute("dashboardDto", dashboardDto);
+	
+		return "dashboard";
+	
 	}
 	
 }
