@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>View-Equiries</title>
+    <title>View-Enquiries</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   </head>
   <body>
@@ -39,6 +39,50 @@
 		<div class="container">
 			
 			<h1>View-Enquiries</h1>
+			
+			
+			<form th:action="@{/filter-enquiries}" th:object="${filterDto}" method="post">
+				<table>
+					<tr>
+						<td>Couse :</td>
+						<td>
+												<select th:field="*{course}">
+													<option value="">-Select-</option>
+													<option value="Java">Java</option>
+													<option value="Python">Python</option>
+													<option value="DevOps">DevOps</option>
+													<option value="AWS">AWS</option>
+												</select>
+						</td>
+						<td>Class Mode :</td>
+						<td>
+						
+													<select th:field="*{classMode}">
+														<option value="">-Select-</option>
+														<option value="Classroom">Classroom</option>
+														<option value="Online">Online</option>
+													</select>
+
+								
+						</td>
+						<td>Enquiry Status</td>
+						<td>
+												<select th:field="*{eneStatus}">
+													<option value="">-Select-</option>
+													<option value="Open">Open</option>
+													<option value="Enrolled">Enrolled</option>
+													<option value="Lost">Lost</option>
+												</select>
+						</td>
+						
+						<td>
+											<input type="submit" value="Filter" class="btn btn-primary">
+										</td>
+
+					</tr>
+				</table>
+				
+			</form>
 			
 			<table class="table table-bordered table-striped">
 				<thead>

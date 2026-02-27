@@ -38,18 +38,18 @@ public class EnquiryServiceImpl implements EnquiryService{
 		
 		int openCount = enqList.stream()
 				.filter(enq -> enq.getEneStatus()
-				.equals("OPEN")).collect(Collectors.toList())
+				.equals("Open")).collect(Collectors.toList())
 				.size();
 		
 		
 		int enrolledCnt	= enqList.stream()
-							.filter(enq -> enq.getEneStatus().equals("ENROLLED"))
+							.filter(enq -> enq.getEneStatus().equals("Enrolled"))
 							.collect(Collectors.toList())
 							.size();
 		
 		
 		int lostCnt	= enqList.stream()
-				.filter(enq -> enq.getEneStatus().equals("LOST"))
+				.filter(enq -> enq.getEneStatus().equals("Lost"))
 				.collect(Collectors.toList())
 				.size();
 		
@@ -126,7 +126,7 @@ public class EnquiryServiceImpl implements EnquiryService{
 		
 		for(EnquiryEntity enq : enqList) {
 			EnquiryDTO dto = new EnquiryDTO();
-			BeanUtils.copyProperties(entity, dto);
+			BeanUtils.copyProperties(enq, dto);
 			enqsDtoList.add(dto);
 		}
 		

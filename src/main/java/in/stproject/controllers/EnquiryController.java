@@ -8,7 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import in.stproject.dto.EnqFilterDTO;
 import in.stproject.dto.EnquiryDTO;
 import in.stproject.service.EnquiryService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,7 +24,7 @@ public class EnquiryController {
 	
 	
 	@GetMapping("/edit-enquiry")
-	public String editEnquiry(Integer enqId, Model model) {
+	public String editEnquiry(@RequestParam("enqId") Integer enqId, Model model) {
 		
 		EnquiryDTO enqDto = enqService.getEnquiryById(enqId);
 		model.addAttribute("enquiry",enqDto);
@@ -42,7 +44,7 @@ public class EnquiryController {
 	}
 	
 	@PostMapping("/add-enquiry")
-	public String addEnquiry(HttpServletRequest req, @ModelAttribute("equiry")EnquiryDTO enquiry, Model model) {
+	public String addEnquiry(HttpServletRequest req, @ModelAttribute("enquiry")EnquiryDTO enquiry, Model model) {
 		
 		HttpSession session = req.getSession(false);
 		Integer counsellorId =  (Integer)session.getAttribute("counsellorId");
@@ -69,7 +71,27 @@ public class EnquiryController {
 		
 	List<EnquiryDTO> enqList = enqService.getEnquiries(counsellorId);
 	
-	model.addAttribute("enquiry", enqList);	
+	model.addAttribute("enquiries", enqList);	
+	
+	EnqFilterDTO filterDto = new EnqFilterDTO();
+	model.addAttribute("filterDto", filterDto);
+	
+		return "view-enquiries";
+	}
+	
+	
+	@PostMapping("/filter-enquiries")
+	public String filterEnquiries(HttpServletRequest req, @ModelAttribute("filterDto") EnqFilterDTO filterDto, Model model) {
+	HttpSession session = req.getSession(false);
+	
+	Integer counsellorId = (Integer)session.getAttribute("counsellorId");
+	
+	
+		
+	List<EnquiryDTO> enqList = enqService.getEnquiries(filterDto, counsellorId);
+	
+	model.addAttribute("enquiries", enqList);	
+	
 	
 		return "view-enquiries";
 	}
